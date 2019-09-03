@@ -473,10 +473,10 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  // Based of Ender 3 - @TODO autotune on stock
-  #define DEFAULT_Kp 16.25
-  #define DEFAULT_Ki 0.98
-  #define DEFAULT_Kd 67.67
+  //PID 3mm single extruder
+  #define DEFAULT_Kp 19.98
+  #define DEFAULT_Ki 1.43
+  #define DEFAULT_Kd 69.61
 
 #endif // PIDTEMP
 
@@ -542,7 +542,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 800
+#define EXTRUDE_MAXLENGTH 550
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -707,7 +707,7 @@
 //Y - 1.8deg 16t
 //Z - 1.8deg acme m8 @2mm pitch
 //E0 - 1.8deg geared x3 - direct drive - @TODO
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 1600, 4800 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 1600, 419 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1006,8 +1006,8 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
-#define INVERT_E1_DIR false
+#define INVERT_E0_DIR true
+#define INVERT_E1_DIR true
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
