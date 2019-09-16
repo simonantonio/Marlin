@@ -706,8 +706,8 @@
 //X - 1.8deg 16t
 //Y - 1.8deg 16t
 //Z - 1.8deg acme m8 @2mm pitch
-//E0 - 1.8deg geared x3 - direct drive - @TODO
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 77.64, 79.4, 1600, 419 }
+//E0 - 1.8deg geared titan x3 
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 79.4, 1600, 419 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -900,7 +900,7 @@
  */
 #define X_PROBE_OFFSET_FROM_EXTRUDER -32  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -10  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.2   // Z offset: -below +above  [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -1 //-2.2   // Z offset: -below +above  [the nozzle]
 
 // Certain types of probes need to stay away from edges
 #define MIN_PROBE_EDGE 32
@@ -1935,7 +1935,7 @@
 // MKS MINI12864 with graphic controller and SD support
 // https://reprap.org/wiki/MKS_MINI_12864
 //
-//#define MKS_MINI_12864
+#define MKS_MINI_12864
 
 //
 // FYSETC variant of the MINI12864 graphic controller with SD support
