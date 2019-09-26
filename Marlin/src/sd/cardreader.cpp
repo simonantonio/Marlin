@@ -192,8 +192,7 @@ void CardReader::lsDive(const char *prepend, SdFile parent, const char * const m
       if (!dir.open(&parent, dosFilename, O_READ)) {
         if (lsAction == LS_SerialPrint) {
           SERIAL_ECHO_START();
-          SERIAL_ECHOPGM(MSG_SD_CANT_OPEN_SUBDIR);
-          SERIAL_ECHOLN(dosFilename);
+          SERIAL_ECHOLNPAIR(MSG_SD_CANT_OPEN_SUBDIR, dosFilename);
         }
       }
       lsDive(path, dir);
@@ -292,8 +291,7 @@ void CardReader::ls() {
       if (!dir.open(&diveDir, segment, O_READ)) {
         SERIAL_EOL();
         SERIAL_ECHO_START();
-        SERIAL_ECHOPGM(MSG_SD_CANT_OPEN_SUBDIR);
-        SERIAL_ECHO(segment);
+        SERIAL_ECHOPAIR(MSG_SD_CANT_OPEN_SUBDIR, segment);
         break;
       }
 
@@ -629,7 +627,7 @@ void CardReader::getfilename(uint16_t nr, const char * const match/*=nullptr*/) 
   lsDive(nullptr, workDir, match);
 }
 
-uint16_t CardReader::getnrfilenames() {
+uint16_t CardReader::countFilesInWorkDir() {
   lsAction = LS_Count;
   nrFiles = 0;
   workDir.rewind();
@@ -707,6 +705,7 @@ void CardReader::chdir(const char * relpath) {
 
   if (newDir.open(parent, relpath, O_READ)) {
     workDir = newDir;
+    flag.workDirIsRoot = false;
     if (workDirDepth < MAX_DIR_DEPTH)
       workDirParents[workDirDepth++] = workDir;
     #if ENABLED(SDCARD_SORT_ALPHA)
@@ -726,14 +725,13 @@ int8_t CardReader::updir() {
       presort();
     #endif
   }
+  if (!workDirDepth) flag.workDirIsRoot = true;
   return workDirDepth;
 }
 
 void CardReader::setroot() {
-  /*if (!workDir.openRoot(&volume)) {
-    SERIAL_ECHOLNPGM(MSG_SD_WORKDIR_FAIL);
-  }*/
   workDir = root;
+  flag.workDirIsRoot = true;
   #if ENABLED(SDCARD_SORT_ALPHA)
     presort();
   #endif
@@ -801,7 +799,7 @@ void CardReader::setroot() {
     #endif
 
     // If there are files, sort up to the limit
-    uint16_t fileCnt = getnrfilenames();
+    uint16_t fileCnt = countFilesInWorkDir();
     if (fileCnt > 0) {
 
       // Never sort more than the max allowed
@@ -981,7 +979,7 @@ uint16_t CardReader::get_num_Files() {
     #if ENABLED(SDCARD_SORT_ALPHA) && SDSORT_USES_RAM && SDSORT_CACHE_NAMES
       nrFiles // no need to access the SD card for filenames
     #else
-      getnrfilenames()
+      countFilesInWorkDir()
     #endif
   ;
 }
