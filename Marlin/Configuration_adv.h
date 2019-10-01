@@ -1765,7 +1765,7 @@
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT     950  // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT     800  // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_MICROSTEPS   16  // 0..256
     #define X_RSENSE     0.11
     #define X_CHAIN_POS     0  // 0 - Not chained, 1 - MCU MOSI connected, 2 - next in chain, ...
@@ -1779,7 +1779,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT     950
+    #define Y_CURRENT     800
     #define Y_MICROSTEPS   16
     #define Y_RSENSE     0.11
     #define Y_CHAIN_POS     0
@@ -1814,7 +1814,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT    1000
+    #define E0_CURRENT    900
     #define E0_MICROSTEPS  16
     #define E0_RSENSE    0.11
     #define E0_CHAIN_POS    0
@@ -2019,9 +2019,9 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  5
+    #define X_STALL_SENSITIVITY  4
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  5
+    #define Y_STALL_SENSITIVITY  4
     //#define Z_STALL_SENSITIVITY  8
     #define SPI_ENDSTOPS              // TMC2130 only
     #define IMPROVE_HOMING_RELIABILITY
